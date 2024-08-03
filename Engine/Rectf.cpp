@@ -1,6 +1,6 @@
 #include "Rectf.h"
 
-Rectf::Rectf(float in_top, float in_bottom, float in_right, float in_left)
+Rectf::Rectf(float in_top, float in_bottom, float in_left, float in_right)
 	:
 	top(in_top),
 	bottom(in_bottom),
@@ -11,7 +11,7 @@ Rectf::Rectf(float in_top, float in_bottom, float in_right, float in_left)
 
 Rectf::Rectf(const Vec2& topleft, const Vec2& bottomright)
 	:
-	Rectf(top = topleft.y, bottom = bottomright.y, right = bottomright.x, left = topleft.x)
+	Rectf(top = topleft.y, bottom = bottomright.y, left = topleft.x, right = bottomright.x)
 {
 }
 
