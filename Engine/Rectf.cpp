@@ -21,6 +21,13 @@ Rectf::Rectf(const Vec2& topleft, float width, float height)
 {
 }
 
+Rectf Rectf::FromCenter(const Vec2& center, float halfWidth, float halfHeight)
+{
+	const Vec2 half(halfWidth, halfHeight);
+
+	return Rectf(center - half, center + half);
+}
+
 bool Rectf::IsOverlappingWith(const Rectf& other) const
 {
 	return top <= other.bottom &&
