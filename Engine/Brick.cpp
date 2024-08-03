@@ -8,11 +8,5 @@ Brick::Brick(const Rectf& rect_in, const Color& color_in)
 
 void Brick::Draw(Graphics& gfx) const
 {
-	for (int x = int(rect.left); x <= int(rect.right); x++)
-	{
-		for (int y = int(rect.top); y <= int(rect.bottom); y++)
-		{
-			gfx.PutPixel(x, y, color);
-		}
-	}
+	gfx.DrawRect(rect.left, rect.top, rect.right, rect.bottom, color);
 }
