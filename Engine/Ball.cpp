@@ -14,3 +14,16 @@ void Ball::Draw(Graphics& gfx) const
 	//Takes center position of ball and graphics obj
 	SpriteCodex::DrawBall(center, gfx);
 }
+
+void Ball::Update(const float dt)
+{
+	pos += vel * dt;
+}
+
+bool Ball::DoWallCollision(const Rectf& walls) const
+{
+	const float diameter = 2.0f * radius;
+	Rectf bRect(pos, diameter, diameter);
+
+	return false;
+}
