@@ -11,13 +11,13 @@ Rectf::Rectf(float in_top, float in_bottom, float in_right, float in_left)
 
 Rectf::Rectf(const Vec2& topleft, const Vec2& bottomright)
 	:
-	Rectf(top = topleft.y, bottom = bottomright.y, left = topleft.x, right = bottomright.x)
+	Rectf(top = topleft.y, bottom = bottomright.y, right = bottomright.x, left = topleft.x)
 {
 }
 
 Rectf::Rectf(const Vec2& topleft, float width, float height)
 	:
-	Rectf(topleft, Vec2(width, height))
+	Rectf(topleft, Vec2(topleft.x + width, topleft.y + height))
 {
 }
 
