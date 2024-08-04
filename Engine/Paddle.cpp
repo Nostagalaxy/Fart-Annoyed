@@ -16,16 +16,33 @@ void Paddle::Draw(Graphics& gfx) const
 
 bool Paddle::DoBallCollision(Ball& b)
 {
+
 	return false;
 }
 
-bool Paddle::DoWallCollision(Rectf& walls)
+void Paddle::DoWallCollision(const Rectf& walls)
 {
-	return false;
+	if (GetRect().left < walls.left)
+	{
+		pos.x += walls.left - GetRect().left;
+	}
+	else if (GetRect().right > walls.right)
+	{
+		pos.x -= GetRect().right - walls.right;
+	}
+
 }
 
-void Paddle::Update(Keyboard& kbd, float dt)
+void Paddle::Update(const Keyboard& kbd, float dt)
 {
+	if (kbd.KeyIsPressed(VK_LEFT))
+	{
+		pos.x -= speed * dt;
+	}
+	if (kbd.KeyIsPressed(VK_RIGHT))
+	{
+		pos.x += speed * dt;
+	}
 }
 
 Rectf Paddle::GetRect() const

@@ -9,13 +9,13 @@ public:
 	Paddle(Vec2 pos_in, float halfW, float halfH, Color c);
 	void Draw(Graphics& gfx) const;
 	bool DoBallCollision(Ball& b);
-	bool DoWallCollision(Rectf& walls);
-	void Update(Keyboard& kbd, float dt);
+	void DoWallCollision(const Rectf& walls);
+	void Update(const Keyboard& kbd, float dt);
 	Rectf GetRect() const;
 private:
 	Color color;
 	float halfWidth;
 	float halfHeight;
 	Vec2 pos;
-	static constexpr float speed = 100.0f;
+	static constexpr float speed = 300.0f;
 };
