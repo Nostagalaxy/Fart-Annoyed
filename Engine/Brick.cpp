@@ -10,7 +10,8 @@ void Brick::Draw(Graphics& gfx) const
 {
 	if (!destroyed)
 	{
-		gfx.DrawRect(int(rect.left), int(rect.top), int(rect.right), int(rect.bottom), color);
+		gfx.DrawRect(int(rect.left), int(rect.top), int(rect.right), int(rect.bottom), Colors::Black);
+		gfx.DrawRect(int(rect.left + padding), int(rect.top + padding), int(rect.right - padding), int(rect.bottom - padding), color);
 	}
 }
 

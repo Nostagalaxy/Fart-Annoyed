@@ -29,9 +29,26 @@ Game::Game(MainWindow& wnd)
 	walls(0.0f, float(gfx.ScreenHeight), 0.0f, float(gfx.ScreenWidth)),
 	ballSound(L"Sounds\\arkpad.wav"),
 	brickPad(L"Sounds\\arkbrick.wav"),
-	brick (Rectf(Vec2(200.0f, 200.0f), 50.0f, 20.0f), Colors::Cyan),
 	paddle(Vec2(400.0f, 550.0f), 30.0f, 10.0f, Colors::White)
 {
+	//Add color array to set colors for each row
+	const Color color[numBricksDown] = { Colors::Blue, Colors::Green, Colors::Yellow, Colors::Red, Colors::Magenta };
+
+	const Vec2 topleft(0.0f, 0.0f);
+
+	int i = 0;
+
+	//For loop to construct each brick in array
+	//row
+	for (int y = 0; y < numBricksDown; y++)
+	{
+		for (int x = 0; x < numBricksAcross; x++)
+		{
+			//screen_x = grid_x * width
+			bricks[i] = Brick(Rectf(topleft + Vec2(x * brickWidth, y * brickHeight), brickWidth, brickHeight), color[y]);
+			i++;
+		}
+	}
 }
 
 void Game::Go()
@@ -56,9 +73,12 @@ void Game::UpdateModel()
 		ballSound.Play();
 	}
 
-	if (brick.DoBallCollision(ball))
+	for (int i = 0; i < numBricks; i++)
 	{
-		brickPad.Play();
+		if (bricks[i].DoBallCollision(ball))
+		{
+			brickPad.Play();
+		}
 	}
 
 	if (ball.DoWallCollision(walls))
@@ -70,6 +90,10 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	ball.Draw( gfx );
-	brick.Draw( gfx );
+	//ranged based for loop
+	for (const Brick& b : bricks)
+	{
+		b.Draw( gfx );
+	}
 	paddle.Draw( gfx );
 }
