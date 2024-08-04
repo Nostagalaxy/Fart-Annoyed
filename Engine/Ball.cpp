@@ -23,8 +23,7 @@ void Ball::Update(const float dt)
 bool Ball::DoWallCollision(const Rectf& walls)
 {
 	bool collided = false;
-	//const float diameter = 2.0f * radius;
-	Rectf bRect = GetRect();//(pos, diameter, diameter);
+	Rectf bRect = GetRect();
 	if (bRect.left < walls.left)
 	{
 		pos.x += walls.left - bRect.left;

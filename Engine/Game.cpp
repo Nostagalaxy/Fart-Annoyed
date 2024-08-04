@@ -29,7 +29,8 @@ Game::Game(MainWindow& wnd)
 	walls(0.0f, float(gfx.ScreenHeight), 0.0f, float(gfx.ScreenWidth)),
 	ballSound(L"Sounds\\arkpad.wav"),
 	brickPad(L"Sounds\\arkbrick.wav"),
-	brick (Rectf(Vec2(200.0f, 200.0f), 50.0f, 20.0f), Colors::Cyan)
+	brick (Rectf(Vec2(200.0f, 200.0f), 50.0f, 20.0f), Colors::Cyan),
+	paddle(Vec2(400.0f, 550.0f), 30.0f, 10.0f, Colors::White)
 {
 }
 
@@ -61,4 +62,5 @@ void Game::ComposeFrame()
 {
 	ball.Draw( gfx );
 	brick.Draw( gfx );
+	paddle.Draw( gfx );
 }
