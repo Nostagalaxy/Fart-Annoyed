@@ -16,7 +16,11 @@ void Paddle::Draw(Graphics& gfx) const
 
 bool Paddle::DoBallCollision(Ball& b)
 {
-
+	if (b.GetVelocity().y > 0.0f && GetRect().IsOverlappingWith(b.GetRect()))
+	{
+		b.ReboundY();
+		return true;
+	}
 	return false;
 }
 

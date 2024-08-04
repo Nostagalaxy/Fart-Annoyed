@@ -48,6 +48,10 @@ void Game::UpdateModel()
 	ball.Update( dt );
 	paddle.Update(wnd.kbd, dt);
 	paddle.DoWallCollision(walls);
+	if (paddle.DoBallCollision(ball))
+	{
+		ballSound.Play();
+	}
 
 	if (brick.DoBallCollision(ball))
 	{
