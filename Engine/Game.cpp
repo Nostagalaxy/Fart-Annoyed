@@ -45,9 +45,12 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	float dt = ft.Mark();
+	
 	ball.Update( dt );
+	
 	paddle.Update(wnd.kbd, dt);
 	paddle.DoWallCollision(walls);
+	
 	if (paddle.DoBallCollision(ball))
 	{
 		ballSound.Play();

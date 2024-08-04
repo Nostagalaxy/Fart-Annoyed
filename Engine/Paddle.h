@@ -14,8 +14,10 @@ public:
 	Rectf GetRect() const;
 private:
 	Color color;
+	Color wingColor = Colors::Red;
 	float halfWidth;
 	float halfHeight;
 	Vec2 pos;
 	static constexpr float speed = 300.0f;
+	static constexpr float wingwidth = 10.0f;
 };
