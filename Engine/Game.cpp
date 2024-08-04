@@ -21,12 +21,13 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd ),
+	wnd(wnd),
+	gfx(wnd),
 	ball(Vec2(100.0f, 100.0f), Vec2(300.0f, 300.0f)),
-	walls(0.0f, float(gfx.ScreenHeight), 0.0f, float(gfx.ScreenWidth))
+	walls(0.0f, float(gfx.ScreenHeight), 0.0f, float(gfx.ScreenWidth)),
+	ballSound(L"Sounds\\arkpad.wav")
 {
 }
 
@@ -42,7 +43,10 @@ void Game::UpdateModel()
 {
 	float dt = ft.Mark();
 	ball.Update( dt );
-	ball.DoWallCollision(walls);
+	if (ball.DoWallCollision(walls))
+	{
+		ballSound.Play();
+	}
 }
 
 void Game::ComposeFrame()

@@ -12,8 +12,6 @@ public:
 	bool DoWallCollision(const Rectf& walls);
 	void ReboundX();
 	void ReboundY();
-
-	//TODO: create function to create rect from center pos and radius (half-width, half-height)
 	Rectf GetRect() const;
 private:
 	static constexpr float radius = 7.0f;
