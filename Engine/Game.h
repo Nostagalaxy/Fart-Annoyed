@@ -52,7 +52,7 @@ private:
 	static constexpr int numBricksAcross = 10;
 	static constexpr int numBricksDown = 5;
 	static constexpr int numBricks = numBricksAcross * numBricksDown;
-	static constexpr float brickWidth = float(Graphics::ScreenWidth / numBricksAcross);
+	static constexpr float brickWidth = float(((Graphics::ScreenWidth - 80.0f) / numBricksAcross));
 
 	Ball ball;
 	FrameTimer ft;

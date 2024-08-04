@@ -34,7 +34,7 @@ Game::Game(MainWindow& wnd)
 	//Add color array to set colors for each row
 	const Color color[numBricksDown] = { Colors::Blue, Colors::Green, Colors::Yellow, Colors::Red, Colors::Magenta };
 
-	const Vec2 topleft(0.0f, 0.0f);
+	const Vec2 topleft(40.0f, 40.0f);
 
 	int i = 0;
 
@@ -73,11 +73,12 @@ void Game::UpdateModel()
 		ballSound.Play();
 	}
 
-	for (int i = 0; i < numBricks; i++)
+	for (Brick& b : bricks)
 	{
-		if (bricks[i].DoBallCollision(ball))
+		if (b.DoBallCollision(ball))
 		{
 			brickPad.Play();
+			break; // Prevents checking for collision after a colision already happened
 		}
 	}
 
