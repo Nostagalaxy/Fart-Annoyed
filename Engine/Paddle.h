@@ -12,12 +12,14 @@ public:
 	void DoWallCollision(const Rectf& walls);
 	void Update(const Keyboard& kbd, float dt);
 	Rectf GetRect() const;
+	void resetCooldown();
 private:
 	Color color;
 	Color wingColor = Colors::Red;
 	float halfWidth;
 	float halfHeight;
 	Vec2 pos;
-	static constexpr float speed = 300.0f;
+	static constexpr float speed = 600.0f;
 	static constexpr float wingwidth = 10.0f;
+	bool onCooldown = false;
 };

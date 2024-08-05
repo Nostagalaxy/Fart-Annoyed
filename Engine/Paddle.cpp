@@ -24,6 +24,7 @@ bool Paddle::DoBallCollision(Ball& b)
 	if (b.GetVelocity().y > 0.0f && GetRect().IsOverlappingWith(b.GetRect()))
 	{
 		Vec2 ballCenter = b.GetCenter();
+		
 		if (std::signbit(b.GetVelocity().x) == std::signbit((ballCenter.x - pos.x)))
 		{
 			b.ReboundY();
@@ -37,6 +38,8 @@ bool Paddle::DoBallCollision(Ball& b)
 		{
 			b.ReboundX();
 		}
+
+		onCooldown = true;
 		return true;
 	}
 	return false;
@@ -70,4 +73,9 @@ void Paddle::Update(const Keyboard& kbd, float dt)
 Rectf Paddle::GetRect() const
 {
 	return Rectf::FromCenter(pos, halfWidth, halfHeight);
+}
+
+void Paddle::resetCooldown()
+{
+	onCooldown = false;
 }

@@ -103,11 +103,13 @@ void Game::UpdateModel()
 	{
 		bricks[curColIndex].ExecuteBallCollision( ball );
 		brickPad.Play();
+		paddle.resetCooldown();
 	}
 
 	if (ball.DoWallCollision(walls))
 	{
 		ballSound.Play();
+		paddle.resetCooldown();
 	}
 }
 
