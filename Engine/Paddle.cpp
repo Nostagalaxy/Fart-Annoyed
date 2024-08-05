@@ -21,26 +21,29 @@ void Paddle::Draw(Graphics& gfx) const
 
 bool Paddle::DoBallCollision(Ball& b)
 {
-	if (b.GetVelocity().y > 0.0f && GetRect().IsOverlappingWith(b.GetRect()))
+	if (!onCooldown)
 	{
-		Vec2 ballCenter = b.GetCenter();
-		
-		if (std::signbit(b.GetVelocity().x) == std::signbit((ballCenter.x - pos.x)))
+		if (GetRect().IsOverlappingWith(b.GetRect()))
 		{
-			b.ReboundY();
-		}
-		else if (ballCenter.x <= GetRect().right &&		//Checks if ball is in between the sides of brick
-			ballCenter.x >= GetRect().left)
-		{
-			b.ReboundY();
-		}
-		else
-		{
-			b.ReboundX();
-		}
+			Vec2 ballCenter = b.GetCenter();
 
-		onCooldown = true;
-		return true;
+			if (std::signbit(b.GetVelocity().x) == std::signbit((ballCenter.x - pos.x)))
+			{
+				b.ReboundY();
+			}
+			else if (ballCenter.x <= GetRect().right &&		//Checks if ball is in between the sides of brick
+				ballCenter.x >= GetRect().left)
+			{
+				b.ReboundY();
+			}
+			else
+			{
+				b.ReboundX();
+			}
+
+			onCooldown = true;
+			return true;
+		}
 	}
 	return false;
 }

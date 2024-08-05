@@ -101,15 +101,15 @@ void Game::UpdateModel()
 
 	if (collisionHappened)
 	{
+		paddle.resetCooldown();
 		bricks[curColIndex].ExecuteBallCollision( ball );
 		brickPad.Play();
-		paddle.resetCooldown();
 	}
 
 	if (ball.DoWallCollision(walls))
 	{
-		ballSound.Play();
 		paddle.resetCooldown();
+		ballSound.Play();
 	}
 }
 
