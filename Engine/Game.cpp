@@ -102,7 +102,7 @@ void Game::UpdateModel()
 	if (collisionHappened)
 	{
 		bricks[curColIndex].ExecuteBallCollision( ball );
-		ballSound.Play();
+		brickPad.Play();
 	}
 
 	if (ball.DoWallCollision(walls))

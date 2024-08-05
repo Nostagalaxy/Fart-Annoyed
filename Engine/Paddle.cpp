@@ -1,4 +1,5 @@
 #include "Paddle.h"
+#include <cmath>
 
 Paddle::Paddle(Vec2 pos_in, float halfW, float halfH, Color c)
 {
@@ -22,7 +23,20 @@ bool Paddle::DoBallCollision(Ball& b)
 {
 	if (b.GetVelocity().y > 0.0f && GetRect().IsOverlappingWith(b.GetRect()))
 	{
-		b.ReboundY();
+		Vec2 ballCenter = b.GetCenter();
+		if (std::signbit(b.GetVelocity().x) == std::signbit((ballCenter.x - pos.x)))
+		{
+			b.ReboundY();
+		}
+		else if (ballCenter.x <= GetRect().right &&		//Checks if ball is in between the sides of brick
+			ballCenter.x >= GetRect().left)
+		{
+			b.ReboundY();
+		}
+		else
+		{
+			b.ReboundX();
+		}
 		return true;
 	}
 	return false;
