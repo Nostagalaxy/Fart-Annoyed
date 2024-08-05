@@ -75,5 +75,5 @@ Vec2 Ball::GetVelocity() const
 
 Vec2 Ball::GetCenter() const
 {
-	return pos;
+	return Vec2(pos.x + radius, pos.y + radius);
 }
