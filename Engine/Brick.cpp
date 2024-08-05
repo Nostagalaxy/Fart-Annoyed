@@ -1,4 +1,5 @@
 #include "Brick.h"
+#include <assert.h>
 
 Brick::Brick(const Rectf& rect_in, const Color& color_in)
 {
@@ -15,27 +16,29 @@ void Brick::Draw(Graphics& gfx) const
 	}
 }
 
-bool Brick::DoBallCollision(Ball& ball)
+bool Brick::CheckBallCollision(const Ball& ball) const
 {
-	if (!destroyed)
+	return !destroyed && rect.IsOverlappingWith(ball.GetRect());
+}
+
+void Brick::ExecuteBallCollision(Ball& ball)
+{
+	assert(CheckBallCollision(ball));
+
+	if (ball.GetRect().right < rect.right &&		//Checks if ball is in between the sides of brick
+		ball.GetRect().left > rect.left)
 	{
-		if (rect.IsOverlappingWith(ball.GetRect()))			//Checks for overlapping
-		{
-			if (ball.GetRect().right < rect.right &&		//Checks if ball is in between the sides of brick
-				ball.GetRect().left > rect.left)
-			{
-				ball.ReboundY();
-				destroyed = true;
-				return true;
-			}
-			else
-			{
-				ball.ReboundX();
-				destroyed = true;
-				return true;
-			}
-		}
+		ball.ReboundY();
 	}
-	return false;
+	else
+	{
+		ball.ReboundX();
+	}
+	destroyed = true;
+}
+
+Vec2 Brick::GetCenter() const
+{
+	return rect.GetCenter();
 }
 

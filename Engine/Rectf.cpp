@@ -35,3 +35,10 @@ bool Rectf::IsOverlappingWith(const Rectf& other) const
 		left <= other.right &&
 		right >= other.left;
 }
+
+Vec2 Rectf::GetCenter() const
+{
+	const float x = (right - left) / 2.0f;
+	const float y = (bottom - top) / 2.0f;
+	return Vec2(x, y);
+}

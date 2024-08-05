@@ -68,18 +68,41 @@ void Game::UpdateModel()
 	paddle.Update(wnd.kbd, dt);
 	paddle.DoWallCollision(walls);
 	
+	bool collisionHappened = false;
+	float curColDist;
+	int curColIndex;
+
 	if (paddle.DoBallCollision(ball))
 	{
 		ballSound.Play();
 	}
 
-	for (Brick& b : bricks)
+	for (int i = 0; i < numBricks; i++)
 	{
-		if (b.DoBallCollision(ball))
+		if (bricks[i].CheckBallCollision(ball))
 		{
-			brickPad.Play();
-			break; // Prevents checking for collision after a colision already happened
+			float newColDist = (ball.GetCenter() - bricks[i].GetCenter()).GetLengthSq();
+			if (collisionHappened)
+			{
+				if (newColDist < curColDist)
+				{
+					curColDist = newColDist;
+					curColIndex = i;
+				}
+			}
+			else 
+			{
+				curColDist = newColDist;
+				curColIndex = i;
+				collisionHappened = true;
+			}
 		}
+	}
+
+	if (collisionHappened)
+	{
+		bricks[curColIndex].ExecuteBallCollision( ball );
+		ballSound.Play();
 	}
 
 	if (ball.DoWallCollision(walls))
