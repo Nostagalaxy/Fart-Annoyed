@@ -126,4 +126,6 @@ void Game::ComposeFrame()
 		b.Draw( gfx );
 	}
 	paddle.Draw( gfx );
+	gfx.DrawRightTriangle(Vec2(400.0f, 400.0f), -40, -40, 255, 0, 0);
+	gfx.DrawRightTriangle(Vec2(400.0f, 400.0f), -40, 40, 0, 255, 0);
 }
