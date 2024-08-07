@@ -60,6 +60,9 @@ public:
 	void DrawRect( int x0,int y0,int x1,int y1,Color c );
 	void DrawCircle( int x,int y,int radius,Color c );
 	void DrawRightTriangleUL(const Vec2& pos, int side, Color c);
+	void DrawRightTriangleDL(const Vec2& pos, int side, Color c);
+	void DrawRightTriangleUR(const Vec2& pos, int side, Color c);
+	void DrawRightTriangleDR(const Vec2& pos, int side, Color c);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

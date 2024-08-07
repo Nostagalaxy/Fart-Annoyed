@@ -367,6 +367,48 @@ void Graphics::DrawRightTriangleUL(const Vec2& pos, int side, Color c)
 	}
 }
 
+void Graphics::DrawRightTriangleDL(const Vec2& pos, int side, Color c)
+{
+	int rowCount = side;
+
+	for (int y = int(pos.y); y <= (int(pos.y) + side); y++)
+	{
+		for (int x = int(pos.x); x >= (int(pos.x) - rowCount); x--)
+		{
+			PutPixel(x, y, c);
+		}
+		rowCount--;
+	}
+}
+
+void Graphics::DrawRightTriangleUR(const Vec2& pos, int side, Color c)
+{
+	int rowCount = side;
+
+	for (int y = int(pos.y); y >= (int(pos.y) - side); y--)
+	{
+		for (int x = int(pos.x); x <= (int(pos.x) + rowCount); x++)
+		{
+			PutPixel(x, y, c);
+		}
+		rowCount--;
+	}
+}
+
+void Graphics::DrawRightTriangleDR(const Vec2& pos, int side, Color c)
+{
+	int rowCount = side;
+
+	for (int y = int(pos.y); y <= (int(pos.y) + side); y++)
+	{
+		for (int x = int(pos.x); x <= (int(pos.x) + rowCount); x++)
+		{
+			PutPixel(x, y, c);
+		}
+		rowCount--;
+	}
+}
+
 //////////////////////////////////////////////////
 //           Graphics Exception
 Graphics::Exception::Exception( HRESULT hr,const std::wstring& note,const wchar_t* file,unsigned int line )
