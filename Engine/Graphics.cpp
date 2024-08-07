@@ -353,53 +353,17 @@ void Graphics::DrawCircle( int x,int y,int radius,Color c )
 	}
 }
 
-void Graphics::DrawRightTriangle(const Vec2& pos, int base, int height, int r, int g, int b)
+void Graphics::DrawRightTriangleUL(const Vec2& pos, int side, Color c)
 {
-	if (base < 0)
+	int rowCount = side;
+
+	for (int y = int(pos.y); y >= (int(pos.y) - side); y--)
 	{
-		
-		if (height < 0)
+		for (int x = int(pos.x); x >= (int(pos.x) - rowCount); x--)
 		{
-			
-			const int bottom = int(pos.x + base);
-			const int side = int(pos.y + height);
-
-			int cCount = 1;
-
-			for (int i = side; i <= int(pos.y); ++i)
-			{
-				for (int c = 0; c < cCount; ++c)
-				{
-					PutPixel( i, int(pos.x - c), r, g, b);
-				}
-				cCount++;
-			}
+			PutPixel(x, y, c);
 		}
-		/*
-			******
-			 *****
-			  ****
-			   ***
-				**
-				 *
-		*/
-		else
-		{
-			
-			const int top = int(pos.x + base);
-			const int side = int(pos.y + height);
-
-			int cCount = -base;
-
-			for (int i = int(pos.y); i <= side; i++)
-			{
-				for (int c = cCount; c >= 0; c--)
-				{
-					PutPixel(i, int(pos.x - c), r, g, b);
-				}
-				cCount--;
-			}
-		}
+	rowCount--;
 	}
 }
 

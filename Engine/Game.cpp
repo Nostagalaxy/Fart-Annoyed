@@ -119,13 +119,13 @@ void Game::UpdateModel( float dt)
 
 void Game::ComposeFrame()
 {
-	ball.Draw( gfx );
+	/*ball.Draw(gfx);
 	//ranged based for loop
 	for (const Brick& b : bricks)
 	{
 		b.Draw( gfx );
 	}
-	paddle.Draw( gfx );
-	gfx.DrawRightTriangle(Vec2(400.0f, 400.0f), -40, -40, 255, 0, 0);
-	gfx.DrawRightTriangle(Vec2(400.0f, 400.0f), -40, 40, 0, 255, 0);
+	paddle.Draw( gfx );*/
+	gfx.DrawRightTriangleUL(Vec2(300.0f, 300.0f), 5, Colors::Blue);
+	
 }
