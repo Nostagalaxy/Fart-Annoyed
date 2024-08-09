@@ -13,6 +13,9 @@ public:
 	bool CheckBallCollision(const Ball& ball) const;
 	void ExecuteBallCollision(Ball& ball);
 	Vec2 GetCenter() const;
+	Rectf GetRect() const;
+	Color GetColor() const;
+	bool isDestroyed() const;
 private:
 	Rectf rect;
 	Color color;

@@ -33,7 +33,6 @@ Game::Game(MainWindow& wnd)
 {
 	//Add color array to set colors for each row
 	const Color color[numBricksDown] = { Colors::Blue, Colors::Green, Colors::Yellow, Colors::Red, Colors::Magenta };
-
 	const Vec2 topleft(40.0f, 40.0f);
 
 	int i = 0;
@@ -121,10 +120,15 @@ void Game::ComposeFrame()
 {
 	ball.Draw(gfx);
 	//ranged based for loop
-	for (const Brick& b : bricks)
+	for (int i = 0; i < numBricks; i++)
 	{
-		b.Draw( gfx );
+		bricks[i].Draw(gfx);
+		
+		if(!bricks[i].isDestroyed())
+			bezl.DrawBrickBezel(gfx, bricks[i].GetRect(), bricks[i].GetColor());
 	}
+
+	
 	paddle.Draw( gfx );
 	
 }

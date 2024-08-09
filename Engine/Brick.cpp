@@ -49,3 +49,18 @@ Vec2 Brick::GetCenter() const
 	return rect.GetCenter();
 }
 
+Rectf Brick::GetRect() const
+{
+	return rect;
+}
+
+Color Brick::GetColor() const
+{
+	return color;
+}
+
+bool Brick::isDestroyed() const
+{
+	return destroyed;
+}
+
