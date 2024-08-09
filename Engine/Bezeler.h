@@ -27,9 +27,9 @@ private:
 	Color rightCol;
 	Color topCol;
 	Color bottomCol;
-	static constexpr float leftFactor = 0.70f;
-	static constexpr float rightFactor = 0.65f;
+	static constexpr float leftFactor = 0.75f;
+	static constexpr float rightFactor = 0.55f;
 	static constexpr float topFactor = 0.85f;
-	static constexpr float bottomFactor = 0.80f;
+	static constexpr float bottomFactor = 0.30f;
 
 };
