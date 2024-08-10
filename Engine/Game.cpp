@@ -67,72 +67,94 @@ void Game::Go()
 
 void Game::UpdateModel( float dt)
 {
-	ball.Update( dt );
-	
-	paddle.Update(wnd.kbd, dt);
-	paddle.DoWallCollision(walls);
-	
-	bool collisionHappened = false;
-	float curColDist;
-	int curColIndex;
-
-	if (paddle.DoBallCollision(ball))
+	if (!isGameOver())
 	{
-		ballSound.Play();
-	}
+		ball.Update(dt);
 
-	for (int i = 0; i < numBricks; i++)
-	{
-		if (bricks[i].CheckBallCollision(ball))
+		paddle.Update(wnd.kbd, dt);
+		paddle.DoWallCollision(walls);
+
+		bool collisionHappened = false;
+		float curColDist;
+		int curColIndex;
+
+		if (paddle.DoBallCollision(ball))
 		{
-			float newColDist = (ball.GetCenter() - bricks[i].GetCenter()).GetLengthSq();
-			if (collisionHappened)
+			ballSound.Play();
+		}
+
+		for (int i = 0; i < numBricks; i++)
+		{
+			if (bricks[i].CheckBallCollision(ball))
 			{
-				if (newColDist < curColDist)
+				float newColDist = (ball.GetCenter() - bricks[i].GetCenter()).GetLengthSq();
+				if (collisionHappened)
+				{
+					if (newColDist < curColDist)
+					{
+						curColDist = newColDist;
+						curColIndex = i;
+					}
+				}
+				else
 				{
 					curColDist = newColDist;
 					curColIndex = i;
+					collisionHappened = true;
 				}
 			}
-			else 
-			{
-				curColDist = newColDist;
-				curColIndex = i;
-				collisionHappened = true;
-			}
+		}
+
+		if (collisionHappened)
+		{
+			paddle.resetCooldown();
+			bricks[curColIndex].ExecuteBallCollision(ball);
+			brickPad.Play();
+		}
+
+		if (ball.DoWallCollision(walls))
+		{
+			paddle.resetCooldown();
+			ballSound.Play();
 		}
 	}
+}
 
-	if (collisionHappened)
+bool Game::isGameOver()
+{
+	if (ball.GetRect().bottom >= walls.bottom - 1.0f)
 	{
-		paddle.resetCooldown();
-		bricks[curColIndex].ExecuteBallCollision( ball );
-		brickPad.Play();
+		gameOver = true;
+		return true;
 	}
+	return false;
+}
 
-	if (ball.DoWallCollision(walls))
-	{
-		paddle.resetCooldown();
-		ballSound.Play();
-	}
+void Game::DrawGameOver()
+{
+	gfx.DrawRect(0, 0, Graphics::ScreenWidth - 1, Graphics::ScreenHeight - 1, Colors::Red);
 }
 
 void Game::ComposeFrame()
 {
-	bezl.DrawInnerBezel(walls, gfx, Colors::Blue);
-	bezl.DrawOuterBezel(walls, gfx, Colors::Blue);
-
-	ball.Draw(gfx);
-	//ranged based for loop
-	for (int i = 0; i < numBricks; i++)
+	if (!gameOver)
 	{
-		bricks[i].Draw(gfx);
-		
-		if(!bricks[i].isDestroyed())
-			bezl.DrawBrickBezel(gfx, bricks[i].GetRect(), bricks[i].GetColor());
-	}
+		bezl.DrawInnerBezel(walls, gfx, Colors::Blue);
+		bezl.DrawOuterBezel(walls, gfx, Colors::Blue);
 
-	
-	paddle.Draw( gfx );
-	
+		ball.Draw(gfx);
+		//ranged based for loop
+		for (int i = 0; i < numBricks; i++)
+		{
+			bricks[i].Draw(gfx);
+
+			if (!bricks[i].isDestroyed())
+				bezl.DrawBrickBezel(gfx, bricks[i].GetRect(), bricks[i].GetColor());
+		}
+		paddle.Draw(gfx);
+	}
+	else
+	{
+		DrawGameOver();
+	}
 }

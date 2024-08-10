@@ -42,6 +42,8 @@ private:
 	void UpdateModel( float dt );
 	/********************************/
 	/*  User Functions              */
+	bool isGameOver();
+	void DrawGameOver();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -54,7 +56,9 @@ private:
 	static constexpr int numBricksDown = 5;
 	static constexpr int numBricks = numBricksAcross * numBricksDown;
 	static constexpr float wallBuffer = 40.0f;
+	
 	float brickWidth;
+	bool gameOver = false;
 
 	Ball ball;
 	FrameTimer ft;
