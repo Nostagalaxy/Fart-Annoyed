@@ -50,10 +50,11 @@ private:
 	/*  User Variables              */
 	
 	static constexpr float brickHeight = 30.0f;
-	static constexpr int numBricksAcross = 10;
+	static constexpr int numBricksAcross = 7;
 	static constexpr int numBricksDown = 5;
 	static constexpr int numBricks = numBricksAcross * numBricksDown;
-	static constexpr float brickWidth = float(((Graphics::ScreenWidth - 80.0f) / numBricksAcross));
+	static constexpr float wallBuffer = 40.0f;
+	float brickWidth;
 
 	Ball ball;
 	FrameTimer ft;

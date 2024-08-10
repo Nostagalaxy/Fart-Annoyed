@@ -26,19 +26,20 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	ball(Vec2(300.0f, 400.0f), Vec2(300.0f, 300.0f)),
-	walls(0.0f, float(gfx.ScreenHeight), 0.0f, float(gfx.ScreenWidth)),
+	walls(13.0f, float(gfx.ScreenHeight) - 13.0f, 150.0f, float(gfx.ScreenWidth) - 150.0f),
 	ballSound(L"Sounds\\arkpad.wav"),
 	brickPad(L"Sounds\\arkbrick.wav"),
 	paddle(Vec2(400.0f, 550.0f), 30.0f, 10.0f, Colors::White)
 {
+	brickWidth = float(((walls.right - walls.left - (wallBuffer * 2.0f)) / numBricksAcross));
+
 	//Add color array to set colors for each row
 	const Color color[numBricksDown] = { Colors::Blue, Colors::Green, Colors::Yellow, Colors::Red, Colors::Magenta };
-	const Vec2 topleft(40.0f, 40.0f);
-
-	int i = 0;
+	const Vec2 topleft(150.0f + wallBuffer, wallBuffer);
 
 	//For loop to construct each brick in array
 	//row
+	int i = 0;
 	for (int y = 0; y < numBricksDown; y++)
 	{
 		for (int x = 0; x < numBricksAcross; x++)
@@ -118,6 +119,9 @@ void Game::UpdateModel( float dt)
 
 void Game::ComposeFrame()
 {
+	bezl.DrawInnerBezel(walls, gfx, Colors::Blue);
+	bezl.DrawOuterBezel(walls, gfx, Colors::Blue);
+
 	ball.Draw(gfx);
 	//ranged based for loop
 	for (int i = 0; i < numBricks; i++)

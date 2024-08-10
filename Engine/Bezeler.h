@@ -10,11 +10,15 @@ public:
 	Bezeler(Color baseColor_in);
 	bool CheckBallCollision(const Ball& ball);
 	void DrawBrickBezel( Graphics& gfx,const Rectf& rect, Color bColor);
+	void DrawInnerBezel(const Rectf& rect, Graphics& gfx, Color color);
+	void DrawOuterBezel(const Rectf& rect, Graphics& gfx, Color color);
 	void SetBaseColor(Color base_in);
 private:
 
 	//TODO needs to know dimensions of rect and be able to change the color for shading
 	static constexpr float bezWidth = 3.0f;
+	static constexpr float frameBezHalfWidth = 6.0f;
+	static constexpr float frBezWidth = frameBezHalfWidth * 2.0f;
 	float left;
 	float right;
 	float top;
