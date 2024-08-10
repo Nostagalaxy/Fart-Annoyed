@@ -32,22 +32,28 @@ Game::Game(MainWindow& wnd)
 	paddle(Vec2(400.0f, 550.0f), 30.0f, 10.0f, Colors::White)
 {
 	brickWidth = float(((walls.right - walls.left - (wallBuffer * 2.0f)) / numBricksAcross));
+	lifeWidth = ((float(walls.left) - 100.0f) / float(numLives)) - 5.0f;
 
 	//Add color array to set colors for each row
 	const Color color[numBricksDown] = { Colors::Blue, Colors::Green, Colors::Yellow, Colors::Red, Colors::Magenta };
 	const Vec2 topleft(150.0f + wallBuffer, wallBuffer);
 
-	//For loop to construct each brick in array
-	//row
+	//Initialize bricks in array
 	int i = 0;
 	for (int y = 0; y < numBricksDown; y++)
 	{
 		for (int x = 0; x < numBricksAcross; x++)
 		{
-			//screen_x = grid_x * width
 			bricks[i] = Brick(Rectf(topleft + Vec2(x * brickWidth, y * brickHeight), brickWidth, brickHeight), color[y]);
 			i++;
 		}
+	}
+
+	//Initialize lives
+	for (int x = 0; x < numLives; x++)
+	{
+								//topleft, width, height
+		lives[x] = Lives( Rectf( Vec2( 20.0f, 20.0f) + Vec2(x * lifeWidth, 0.0f), lifeWidth, lifeHeight));
 	}
 }
 
@@ -137,13 +143,22 @@ void Game::DrawGameOver()
 
 void Game::ComposeFrame()
 {
-	if (!gameOver)
+	if (true)
 	{
+		//Draw border
 		bezl.DrawInnerBezel(walls, gfx, Colors::Blue);
 		bezl.DrawOuterBezel(walls, gfx, Colors::Blue);
 
+		//Draw lives
+		for (int i = 0; i < numLives; i++)
+		{
+			lives[i].Draw(gfx);
+		}
+
+		//Draw ball
 		ball.Draw(gfx);
-		//ranged based for loop
+		
+		//Draw bricks
 		for (int i = 0; i < numBricks; i++)
 		{
 			bricks[i].Draw(gfx);

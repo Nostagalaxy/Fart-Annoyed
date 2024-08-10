@@ -29,6 +29,7 @@
 #include "FrameTimer.h"
 #include "Sound.h"
 #include "Bezeler.h"
+#include "Lives.h"
 
 class Game
 {
@@ -56,8 +57,11 @@ private:
 	static constexpr int numBricksDown = 5;
 	static constexpr int numBricks = numBricksAcross * numBricksDown;
 	static constexpr float wallBuffer = 40.0f;
+	static constexpr int numLives = 3;
+	static constexpr float lifeHeight = 15.0f;
 	
 	float brickWidth;
+	float lifeWidth;
 	bool gameOver = false;
 
 	Ball ball;
@@ -68,5 +72,6 @@ private:
 	Brick bricks[numBricks];
 	Paddle paddle;
 	Bezeler bezl;
+	Lives lives[numLives];
 	/********************************/
 };
